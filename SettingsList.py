@@ -472,24 +472,46 @@ setting_infos = [
         },
         shared=False,
     ),
-    Checkbutton(
+    Combobox(
             name           = 'open_forest',
+            default        = 'open',
+            choices        = {
+                'open':      'Open Forest',
+                'vanilla':   'Vanilla closed',
+                'deku':      'Open Deku Tree',
+                'more':      'Closed in logic',
+                'dekuLogic': 'Closed in logic w/ Deku Tree open'
+                },
             args_help      = '''\
-                             Mido no longer blocks the path to the Deku Tree, and
-                             the Kokiri boy no longer blocks the path out of the forest.
+                             Select how to exit Kokiri Forest/access Deku Tree (default: %(default)s)
+                             Open:      Deku Tree and Forest exit are open from the start.
+                             Vanilla:   Follow the vanilla requirement for Kokiri Forest, guaranteed required item in Forest.
+                             Deku:      Same as previous, but with Deku Tree open from the start.
+                             More:      Exit with vanilla requirement, but song and Lost Wood exits included in Logic.
+                             DekuLogic: Same as previous, but Deku Tree is open from the start.
                              ''',
-            gui_text       = 'Open Forest',
+            gui_text       = 'Kokiri Forest / Deku Tree',
             gui_group      = 'open',
             gui_tooltip    = '''\
-                             Mido no longer blocks the path to the Deku Tree,
-                             and the Kokiri boy no longer blocks the path out
-                             of the forest.
-
-                             When this option is off, the Kokiri Sword and
-                             Slingshot are always available somewhere
+                             'Open Forest': Mido no longer blocks the path to the Deku Tree, and
+                             the Kokiri boy no longer blocks the path out of the forest.
+                             
+                             'Vanilla closed': Mido blocks the path to the Deku Tree, and
+                             the Kokiri boy blocks the path out of the forest. The Kokiri Sword,
+                             Kokiri shield and Slingshot are always available somewhere
                              in the forest.
+                             
+                             'Open Deku Tree': Same as previous, but Mido no longer blocks the path
+                             to the Deku Tree.
+                             
+                             'Closed in logic': Mido blocks the path to the Deku Tree, and
+                             the Kokiri boy blocks the path out of the forest. You might be expected
+                             to exit using a warp song or one of the Lost Wood exits. Might need to
+                             save-warp back in.
+                             
+                             'Closed in logic w/ Deku Tree open': Same as previous, but Mido no longer
+                             blocks the path to the Deku Tree.
                              ''',
-            default        = True,
             shared         = True,
             ),
     Checkbutton(
@@ -568,7 +590,7 @@ setting_infos = [
             choices        = {
                 'open':       'Always Open',
                 'vanilla':    'Vanilla Requirements',
-                'stones':	  'All Spiritual Stones',
+                'stones':     'All Spiritual Stones',
                 'medallions': 'All Medallions',
                 'dungeons':   'All Dungeons',
                 'tokens':     '100 Gold Skulltula Tokens'
@@ -766,20 +788,6 @@ setting_infos = [
                              Epona can be summoned with Epona's Song
                              without needing to race Ingo.
                              ''',
-            shared         = True,
-            ),
-    Checkbutton(
-            name           = 'fast_chests',
-            args_help      = '''\
-                             Makes all chests open without the large chest opening cutscene.
-                             ''',
-            gui_text       = 'Fast Chest Cutscenes',
-            gui_group      = 'convenience',
-            gui_tooltip    = '''\
-                             All chest animations are fast. If disabled,
-                             the animation time is slow for major items.
-                             ''',
-            default        = True,
             shared         = True,
             ),
     Checkbutton(
@@ -1714,6 +1722,250 @@ setting_infos = [
                              Default is 10:00 in the morning.
                              The alternatives are multiples of 3 hours.
                              ''',
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'fast_song',
+            args_help      = '''\
+                             Make song learning faster if possible.
+                             ''',
+            gui_text       = 'Fast song learning',
+            gui_group      = 'mechanics',
+            gui_tooltip    = '''\
+                             Cut the song learning process in order to get the reward
+                             immediately. Does not affect scarecrow song.
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'fast_push',
+            args_help      = '''\
+                             Allow to push all objects faster.
+                             ''',
+            gui_text       = 'Enable fast push',
+            gui_group      = 'mechanics',
+            gui_tooltip    = '''\
+                             Allow to push all objects faster.
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'fast_biggoron',
+            args_help      = '''\
+                             Negate need to wait for claim check.
+                             ''',
+            gui_text       = 'Immediate claim check',
+            gui_group      = 'mechanics',
+            gui_tooltip    = '''\
+                             Allow to use the claim check immediately for the
+                             Biggoron side-quest.
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'fast_dig_minigame',
+            args_help      = '''\
+                             Give Dampe digging HP first try.
+                             ''',
+            gui_text       = 'First try dig minigame',
+            gui_group      = 'mechanics',
+            gui_tooltip    = '''\
+                             Dampe will always dig, and dig the HP first try
+                             during Dampe graveyard dig minigame. Recomended
+                             as the HP now may look like a normal item.
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'fast_ocarina_game',
+            args_help      = '''\
+                             Give HP on the first ocarina minigame.
+                             ''',
+            gui_text       = 'Fast ocarina minigame',
+            gui_group      = 'mechanics',
+            gui_tooltip    = '''\
+                             Give the reward after the first set in the
+                             Lost Wood Ocarina minigame.
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'fast_jabu_elevator',
+            args_help      = '''\
+                             Make Jabu-jabu elevator more convenient, if possible.
+                             ''',
+            gui_text       = 'Convenient Jabu-jabu elevator',
+            gui_group      = 'mechanics',
+            gui_tooltip    = '''\
+                             Make Jabu-jabu elevator more convenient, if possible.
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'fast_chests',
+            args_help      = '''\
+                             Makes all chests open without the large chest opening cutscene.
+                             ''',
+            gui_text       = 'Fast Chest Cutscenes',
+            gui_group      = 'cutscenes',
+            gui_tooltip    = '''\
+                             All chest animations are fast. If disabled,
+                             the animation time is slow for major items.
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'deku_ctsn',
+            args_help      = '''\
+                             Obtain items from scrubs without cutscene.
+                             ''',
+            gui_text       = 'Fast Deku scrub Cutscenes',
+            gui_group      = 'cutscenes',
+            gui_tooltip    = '''\
+                             All extra animation from obtaining items from Deku scrubs
+                             are removed.
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'min_owl',
+            args_help      = '''\
+                             Keep the owl only for transport.
+                             ''',
+            gui_text       = 'Minimal Kaepora Gaebora',
+            gui_group      = 'cutscenes',
+            gui_tooltip    = '''\
+                             Remove most instance of the owl (he has a name you know),
+                             keeping him only for transportation.
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'dng_ctsn',
+            args_help      = '''\
+                             Reduce pre/post dungeon cutscenes.
+                             ''',
+            gui_text       = 'Minimal dungeon cutscene',
+            gui_group      = 'cutscenes',
+            gui_tooltip    = '''\
+                             Greatly reduce the length of the dungeons intro/outro.
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'boss_ctsn',
+            args_help      = '''\
+                             Reduce pre/post boss cutscenes.
+                             ''',
+            gui_text       = 'Minimal bosses cutscene',
+            gui_group      = 'cutscenes',
+            gui_tooltip    = '''\
+                             Greatly reduce the length of the dungeons bosses intro/outro.
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'tree_ctsn',
+            args_help      = '''\
+                             Reduce Deku Tree cutscenes specifically.
+                             ''',
+            gui_text       = 'Remove Deku Tree cutscene',
+            gui_group      = 'cutscenes',
+            gui_tooltip    = '''\
+                             Reduce the duration or remove cutscenes involving the Great
+                             Deku Tree.
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'zelda_ctsn',
+            args_help      = '''\
+                             Reduce cutscenes involving Zelda specifically.
+                             ''',
+            gui_text       = 'Remove Zelda cutscene',
+            gui_group      = 'cutscenes',
+            gui_tooltip    = '''\
+                             Reduce cutscenes involving Zelda specifically.
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'ganon_ctsn',
+            args_help      = '''\
+                             Reduce cutscenes involving Ganondorf/Ganon specifically.
+                             ''',
+            gui_text       = 'Remove Ganon/Ganondorf cutscene',
+            gui_group      = 'cutscenes',
+            gui_tooltip    = '''\
+                             Reduce cutscenes involving Ganondorf or Ganon specifically.
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'focarina_ctsn',
+            args_help      = '''\
+                             Reduce the fairy ocarina cutscene.
+                             ''',
+            gui_text       = 'Remove Fairy ocarina cutscene',
+            gui_group      = 'cutscenes',
+            gui_tooltip    = '''\
+                             Remove the cutscene to get Saria's gift.
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'darunia_ctsn',
+            args_help      = '''\
+                             Remove Darunia's dance.
+                             ''',
+            gui_text       = 'Remove Darunia dance',
+            gui_group      = 'cutscenes',
+            gui_tooltip    = '''\
+                             Remove Darunia's dance, but why?
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'mweep_ctsn',
+            args_help      = '''\
+                             Reduce King Zora cutscene.
+                             ''',
+            gui_text       = 'Remove King Zora cutscene',
+            gui_group      = 'cutscenes',
+            gui_tooltip    = '''\
+                             mweep....mweep....
+                             ''',
+            default        = True,
+            shared         = True,
+            ),
+    Checkbutton(
+            name           = 'other_ctsn',
+            args_help      = '''\
+                             Reduce other cutscene.
+                             ''',
+            gui_text       = 'Remove other cutscene',
+            gui_group      = 'cutscenes',
+            gui_tooltip    = '''\
+                             Remove most cutscene that are not inside the 
+                             other categories.
+                             ''',
+            default        = True,
             shared         = True,
             ),
     Combobox(
